@@ -12,7 +12,9 @@ services:
     environment:
       - DNS_SERVER=${DNS_SERVER:-}
     networks:
-      - internal
+      internal:
+        aliases:
+          - dns.local
 
   mikrotik-dns-frontend:
     container_name: mikrotik-dns-frontend
@@ -21,7 +23,7 @@ services:
       context: ./page
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3100:3100"
     networks:
       - internal
     environment:
@@ -32,3 +34,4 @@ services:
 networks:
   internal:
     external: true
+    name: mikrotik_dns_net
